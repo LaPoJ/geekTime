@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@pages/home/index'
 import Mine from '@pages/mine/Mine'
-import Course from '@pages/course/Course'
 import Learn from '@pages/learn/Learn.vue'
+import Lesson from '@components/lesson/Lesson.vue'
+import Intro from '@components/intro/ColumnIntro.vue'
 
 Vue.use(Router)
 
@@ -27,14 +28,19 @@ export default new Router({
       component: Mine
     },
     {
-      path: '/course',
-      name: 'Course',
-      component: Course
-    },
-    {
       path: '/learn',
       name: 'Learn',
       component: Learn
+    },
+    {
+      path: '/lesson',
+      name: 'Lesson',
+      component: Lesson
+    },
+    {
+      path: '/intro',
+      name: 'Intro',
+      component: Intro
     }
   ]
 })
