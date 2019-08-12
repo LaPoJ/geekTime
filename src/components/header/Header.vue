@@ -11,35 +11,47 @@
         <div slot="action" @click="onSearch">搜索</div>
       </van-search>
     </div>
-    <div class="header-swiper">
-      <van-swipe :autoplay="3000" indicator-color="white" :height="200">
-        <van-swipe-item>
-          <img :src="imageUrl"/>
-        </van-swipe-item>
-        <van-swipe-item>
-          <img :src="imageUrl"/>
-        </van-swipe-item>
-        <van-swipe-item>
-          <img :src="imageUrl"/>
-        </van-swipe-item>
-        <van-swipe-item>
-          <img :src="imageUrl"/>
-        </van-swipe-item>
-      </van-swipe>
+    <div class="header-nav">
+      <div class="nav-item" v-for="(nav, index) in navList"  :key="index" @click="changeColumn(index)">
+        <img :src="nav.icon" alt="">
+        <div class="nav-title">
+          <span>{{ nav.name }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Search } from 'vant'
 export default {
   name: 'Header',
+  props: ['navList'],
   data () {
     return {
-      imageUrl: 'https://xuecdn2.aliyunedu.net/img_ee1672651bdbd2ce1accc587e4337f77.jpg'
+      value: ''
     }
   },
-  components: {
+  methods: {
+    onSearch (e) {
+      console.log(e)
+    },
+    changeColumn (index) {
+      const title = this.navList[index].name
+      const id = this.navList[index].id
+      this.$router.push({
+        name: 'Lesson',
+        params: {
+          title,
+          id
+        }
+      })
+      this.$store.dispatch('changeShowTabbar', this)
+    }
+  },
 
+  components: {
+    'van-search': Search
   }
 }
 </script>
@@ -50,7 +62,26 @@ export default {
 }
 .header-swiper{
   width: 100%;
-  /* background-color: red; */
+  box-sizing: border-box;
+  padding: 1rem;
 }
-
+.header-swiper img {
+  width: 100%;
+}
+.header-nav{
+  display: flex;
+  width: 100%;
+  margin-top: .533333rem;
+}
+.nav-item{
+  flex: 1;
+  text-align: center;
+}
+.nav-item img {
+  width: .8rem;
+}
+.nav-title{
+  margin-top: .133333rem;
+  font-size: .373333rem;
+}
 </style>
